@@ -1,0 +1,4 @@
+AuthName "NOC Restricted Area (snr)"
+AuthType Basic
+AuthUserFile /home/noc/noc.interstrada.net/.inc/passwd
+require valid-user

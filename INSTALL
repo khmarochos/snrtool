@@ -1,0 +1,27 @@
+1. Untar snr-x.x.tar.gz;
+2. Look into rrd/ subdirectory;
+3. Create subdirectories in rrd/ with names of your base stations;
+4. Don't forget to edit rrd/BASE_STATION/.community to set snmp-communities;
+5. Look at etc/snr.conf and edit rrd_dir parameter
+6. Try to run it: `sbin/snr.pl --debug-level=5 --log=/dev/stdout`;
+7. If it works, configure your cron-daemon to run 'sbin/snr.pl' every */5;
+8. Take enjoy;
+9. Excuse me for my bad English, NO documentation and bugs you found;
+P.S. You will need perl-5.6.1 and Net::SNMP module.
+P.P.S. +rrdtool by T.Oetiker and RRDs perl module;
+P.P.P.S. Don't forget about apache. If wou want to browse all your base
+stations and clients, take it:
+    ScriptAlias /snr/cgi-bin/ /usr/local/snr/cgi-bin/
+    <Directory /usr/local/snr/cgi-bin>
+        AllowOverride AuthConfig
+    	Options +ExecCGI
+    </Directory>
+    Alias /snr/ /usr/local/snr/rrd/
+    <Directory /usr/local/snr/rrd>
+        AllowOverride AuthConfig Indexes
+	Options +SymLinksIfOwnerMatch
+	RewriteEngine on
+	RewriteRule ^(.+)\/(.+)\.rrd$ /snr/cgi-bin/snr.cgi?base=$1\&peer=$2\&step=86400 [R]
+    </Directory>
+mod_rewrite will redirect your browser to cgi-script when you will click at
+simple .rrd file with database. Pretty useful. :)

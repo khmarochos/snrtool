@@ -1,0 +1,4 @@
+AuthName "Restricted Area (snr)"
+AuthType Basic
+AuthUserFile /foobar/.inc/passwd
+require user foo bar
